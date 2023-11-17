@@ -7,7 +7,6 @@ function getComputerChoice() {
 
 function playRound (playerSelection, computerSelection) {
     let message
-    playerSelection = playerSelection.toLowerCase()
 
     if (playerSelection == computerSelection) {
         return message = "It's a tie!";
@@ -27,27 +26,24 @@ function playRound (playerSelection, computerSelection) {
     }
 }
 
-function game () { 
+function game (playerSelection) { 
     let computerSelection;
-    let playerSelection;
     let score;
     let playerScore = 0;
     let computerScore = 0;
     let message;
-    for ( i = 0; i < 5; i++) {
-        computerSelection = getComputerChoice();
-        playerSelection = prompt('Enter rock, paper, or scissors');
-        console.log("Player choice: " + playerSelection);
-        score = playRound(playerSelection, computerSelection);
-        console.log(score);
-        if (score.slice(0, 6) == "You Wi") {
-            playerScore = playerScore + 1;
-        }
-        else if (score.slice(0,6) == "You Lo") {
-            computerScore = computerScore + 1;
-        }
-    console.log("Player: " + playerScore + " Computer: " + computerScore)
+    computerSelection = getComputerChoice();
+    console.log("Player choice: " + playerSelection);
+    score = playRound(playerSelection, computerSelection);
+    console.log(score);
+    if (score.slice(0, 6) == "You Wi") {
+        playerScore = playerScore + 1;
     }
+    else if (score.slice(0,6) == "You Lo") {
+        computerScore = computerScore + 1;
+    }
+    console.log("Player: " + playerScore + " Computer: " + computerScore)
+    
     if (playerScore === computerScore) {
         message = "It's a tie!"
     }
@@ -58,8 +54,13 @@ function game () {
         message = "You lose!"
     }
     console.log(message)
+    
 }
 
-game()
+const selection = document.querySelector(".container");
+selection.addEventListener("click", function (e) {
+    playerSelection = e.target.getAttribute("id");
+    game(playerSelection);   
+});
 
 
