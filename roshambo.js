@@ -1,13 +1,13 @@
 function getComputerChoice() {
     const choices = ['rock', 'paper', 'scissors'];
     let computerChoice = Math.floor(Math.random() * choices.length);
-    console.log('Computer choice: ' + choices[computerChoice]);
     return choices[computerChoice]
 }
 
-function playRound (playerSelection, computerSelection) {
+function playRound (playerSelection) {
     let message
-
+    let computerSelection = getComputerChoice();
+    choice.innerText = ("Player choice: " + playerSelection + "\nComputer choice: " + computerSelection)
     if (playerSelection == computerSelection) {
         return message = "It's a tie!";
     }
@@ -26,24 +26,28 @@ function playRound (playerSelection, computerSelection) {
     }
 }
 
+let i = 0;
 function game (playerSelection) { 
-    let computerSelection;
     let score;
     let playerScore = 0;
     let computerScore = 0;
     let message;
-    computerSelection = getComputerChoice();
-    console.log("Player choice: " + playerSelection);
-    score = playRound(playerSelection, computerSelection);
-    console.log(score);
+    if (i < 5) {
+
+    score = playRound(playerSelection); 
+    roundWinner.textContent = score;
     if (score.slice(0, 6) == "You Wi") {
         playerScore = playerScore + 1;
     }
     else if (score.slice(0,6) == "You Lo") {
         computerScore = computerScore + 1;
     }
-    console.log("Player: " + playerScore + " Computer: " + computerScore)
-    
+}
+    i = i +1;
+    console.log(i);
+    totalScore.textContent = ("Player: " + playerScore + " Computer: " + computerScore)
+
+else {
     if (playerScore === computerScore) {
         message = "It's a tie!"
     }
@@ -54,13 +58,19 @@ function game (playerSelection) {
         message = "You lose!"
     }
     console.log(message)
-    
+
+}
 }
 
+const choice = document.querySelector("#choice");
+const roundWinner = document.querySelector("#winner");
+const totalScore = document.querySelector("#score");
 const selection = document.querySelector(".container");
 selection.addEventListener("click", function (e) {
     playerSelection = e.target.getAttribute("id");
-    game(playerSelection);   
+    game(playerSelection);
 });
+
+
 
 
