@@ -25,46 +25,50 @@ function playRound (playerSelection) {
         return message = "Error: Please enter rock, paper, or scissors"
     }
 }
-
+let playerScore = 0;
+let computerScore = 0;
 let i = 0;
-function game (playerSelection) { 
-    let score;
-    let playerScore = 0;
-    let computerScore = 0;
-    let message;
-    if (i < 5) {
-
-    score = playRound(playerSelection); 
-    roundWinner.textContent = score;
-    if (score.slice(0, 6) == "You Wi") {
+function displayScore(gameScore) {
+    
+    roundWinner.textContent = gameScore;
+    if (gameScore.slice(0, 6) == "You Wi") {
         playerScore = playerScore + 1;
     }
-    else if (score.slice(0,6) == "You Lo") {
+    else if (gameScore.slice(0, 6) == "You Lo") {
         computerScore = computerScore + 1;
     }
+    
+    totalScore.innerText = ("\nPlayer: " + playerScore + " Computer: " + computerScore)
 }
-    i = i +1;
-    console.log(i);
-    totalScore.textContent = ("Player: " + playerScore + " Computer: " + computerScore)
-
-else {
-    if (playerScore === computerScore) {
-        message = "It's a tie!"
-    }
-    else if (playerScore > computerScore) {
-        message = "You win!"
+function game(playerSelection) {
+    i = i + 1;
+    let score;
+    let message;
+    if ( i > 5 ) {return}
+    else if ( i < 5 ){
+        score = playRound(playerSelection);
+        displayScore(score);
     }
     else {
-        message = "You lose!"
-    }
-    console.log(message)
-
-}
+        score = playRound(playerSelection);
+        displayScore(score);
+        if (playerScore === computerScore) {
+            message = "It's a tie!"
+        }
+        else if (playerScore > computerScore) {
+            message = "You win!"
+        }
+        else {
+            message = "You lose!"
+        }
+        finalWinner.textContent = message;
+    } 
 }
 
 const choice = document.querySelector("#choice");
 const roundWinner = document.querySelector("#winner");
 const totalScore = document.querySelector("#score");
+const finalWinner = document.querySelector("#finalWinner");
 const selection = document.querySelector(".container");
 selection.addEventListener("click", function (e) {
     playerSelection = e.target.getAttribute("id");
